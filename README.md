@@ -1,0 +1,2 @@
+# AcademiSync
+Web development + cloud
