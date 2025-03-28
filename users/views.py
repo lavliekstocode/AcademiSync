@@ -13,7 +13,7 @@ def register(request):
             return redirect('dashboard')  # Redirect based on role
     else:
         form = CustomUserCreationForm()
-    return render(request, 'users/register.html', {'form': form})
+    return render(request, 'register.html', {'form': form})
 
 def login_view(request):
     if request.method == 'POST':
@@ -23,7 +23,26 @@ def login_view(request):
         if user:
             login(request, user)
             return redirect('dashboard')  
-    return render(request, 'users/login.html')
+    return render(request, 'login.html')
 
-def home(request):
-    return render(request, 'users/home.html')  # Make sure this template exists
+def home(request):  
+    return render(request, 'users/home.html')
+
+
+def dashboard(request):
+    return render(request, 'dashboard.html')  
+
+from django.shortcuts import render
+from .models import Document
+from .forms import DocumentForm
+
+def upload_file(request):
+    if request.method == "POST":
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()  # Saves to Cloudinary
+    else:
+        form = DocumentForm()
+    
+    documents = Document.objects.all()  # Get all uploaded files
+    return render(request, "upload.html", {"form": form, "documents": documents})

@@ -58,7 +58,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'users/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'users','templates')],  
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,4 +139,26 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),  # Ensures static files from 'static/' directory are used
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Collects static files here
+
+import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+INSTALLED_APPS += [
+    "cloudinary",
+    "cloudinary_storage",
+]
+
+# Configure Cloudinary
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": "dil6q5f1e",
+    "API_KEY": "687341417888624",
+    "API_SECRET": "N4LxLh-NfW0X-70QBKR9z8Qy33c",
+}
+
+# Set Cloudinary as the default storage
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+
 
